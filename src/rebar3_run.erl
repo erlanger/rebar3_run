@@ -49,7 +49,8 @@ format_error(no_release) ->
 
 init() ->
     application:load(rebar3_run),
-    PrivDir = code:priv_dir(rebar3_run),
+    Arch=erlang:system_info(system_architecture),
+    PrivDir = filename:join([code:priv_dir(rebar3_run),Arch]),
     ok = erlang:load_nif(filename:join(PrivDir, "rebar3_run"), 0).
 
 exec(_Path, _Args) ->
